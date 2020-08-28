@@ -1,0 +1,66 @@
+% Created 2020-08-27 Thu 01:02
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\author{Edward Kim}
+\date{\today}
+\title{BHH2019}
+\hypersetup{
+ pdfauthor={Edward Kim},
+ pdftitle={BHH2019},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 26.3 (Org mode 9.4)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+
+\section{Major Findings to Investigate/Understand}
+\label{sec:org9e50a7b}
+\subsection{Random Haar Unitary requires exponential number of two-qubit gates and random bits.}
+\label{sec:org82a1496}
+This makes it infeasible for practice to select such a unitary according to Haar measure.
+\href{https://arxiv.org/pdf/quant-ph/9508006.pdf}{Knill. Approximations by Quantum Circuits}
+
+\subsection{Best result for a some time was that polynomial random quantum circuits are approximate 2-designs}
+\label{sec:orge6ed15b}
+\subsection{A unitary chosen under Haar measure can be thought of sampling from a uniform distribution over all unitaries in the unitary group.}
+\label{sec:org549b286}
+A quantum expander's rapid mixing time (polynomial in \(t\) for a \$t\$-design) means that we can rapidly converge to such a unitary.
+
+We can then think about a local random circuit on n qudits as a random walk such that we pick some index i and some unitary \(U_{i,i+1} \in \mathbb{U}(d^2)\) and we apply \(U_{i.i+1}\) on the qubits \(i\) and \(i+1\). This gives us a distribution over \(\mathbb{U}(d^n)\)
+
+\subsection{Folklore result: An overwhelming number of pure quantum states on n qubits is indistinguihable from the maximally mixed state if restricted to measurements implemented with subexponential-sized quantum circuits.}
+\label{sec:orga3a6da1}
+\href{https://arxiv.org/pdf/0812.3001.pdf}{Are random pure states useful for quantum computation?}
+
+\subsection{The proof of the main result concerns bounding the mixing time by the spectral gap (Cheeger-like inequality)}
+\label{sec:org554aa59}
+\href{https://arxiv.org/pdf/0910.0913.pdf}{Convergence rates for arbitrary statistical moments of random quantum circuits
+}
+\subsection{Previous papers have weaker results and are probably worth taking a look for learning techniques behind proofs.}
+\label{sec:org16d9be3}
+\href{https://arxiv.org/pdf/0811.2597.pdf}{Efficient Quantum Tensor Product Expanders and k-designs}
+\href{https://link.springer.com/content/pdf/10.1007/s00220-009-0873-6.pdf}{Random Quantum Circuits are Approximate 2-designs}
+
+\section{Questions to consider.}
+\label{sec:org80761cf}
+
+\subsection{Is it worth learning the tensor-product expander constructions now? Maybe I should make a short article about it?}
+\label{sec:orgf9d2e3d}
+\end{document}

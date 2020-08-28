@@ -1,0 +1,33 @@
+#+TITLE: BHH2019
+#+STARTUP: latexpreview
+#+OPTIONS: H1
+
+* Major Findings to Investigate/Understand
+** Random Haar Unitary requires exponential number of two-qubit gates and random bits.
+This makes it infeasible for practice to select such a unitary according to Haar measure.
+[[https://arxiv.org/pdf/quant-ph/9508006.pdf][Knill. Approximations by Quantum Circuits]]
+
+** Best result for a some time was that polynomial random quantum circuits are approximate 2-designs
+** A unitary chosen under Haar measure can be thought of sampling from a uniform distribution over all unitaries in the unitary group.
+A quantum expander's rapid mixing time (polynomial in $t$ for a $t$-design) means that we can rapidly converge to such a unitary.
+
+Definition of /Quantum Tensor Product Expander/ $g(\upsilon,t,\lambda)$, is a distribution $\upsilon$ over $\mathbb{U}(N)$ such that
+$$ g(\upsilon, t) = || \int_{\mathbb{U}(N)} U^{\otimes t} \otiimes (U^*)^{\otimes t} \upsilon(dU) - \int_{\mathbb{U}(N)} U^{\otimes t} \otiimes (U^*)^{\otimes t} \mu(dU)||_{\infty} \leq \lambda $$
+where $\mu$ is the Haar measure over Lie group $\mathbb{U}(N)$
+
+We can then think about a local random circuit on n qudits as a random walk such that we pick some index i and some unitary $U_{i,i+1} \in \mathbb{U}(d^2)$ and we apply $U_{i.i+1}$ on the qubits $i$ and $i+1$. This gives us a distribution over $\mathbb{U}(d^n)$
+
+** Folklore result: An overwhelming number of pure quantum states on n qubits is indistinguihable from the maximally mixed state if restricted to measurements implemented with subexponential-sized quantum circuits.
+[[https://arxiv.org/pdf/0812.3001.pdf][Are random pure states useful for quantum computation?]]
+
+** The proof of the main result concerns bounding the mixing time by the spectral gap (Cheeger-like inequality)
+[[https://arxiv.org/pdf/0910.0913.pdf][Convergence rates for arbitrary statistical moments of random quantum circuits
+]]
+** Previous papers have weaker results and are probably worth taking a look for learning techniques behind proofs.
+    [[https://arxiv.org/pdf/0811.2597.pdf][Efficient Quantum Tensor Product Expanders and k-designs]]
+    [[https://link.springer.com/content/pdf/10.1007/s00220-009-0873-6.pdf][Random Quantum Circuits are Approximate 2-designs]]
+    
+* Questions to consider.
+
+** Is it worth learning the tensor-product expander constructions now? Maybe I should make a short article about it?
+Yes. It would be friutful to learn some relevant Quantum Complexity Theory on the side.
