@@ -1,6 +1,6 @@
-% Created 2020-08-27 Thu 01:02
+% Created 2020-09-06 Sun 02:12
 % Intended LaTeX compiler: pdflatex
-\documentclass[11pt]{article}
+\documentclass[a4paper]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{graphicx}
@@ -14,6 +14,7 @@
 \usepackage{amssymb}
 \usepackage{capt-of}
 \usepackage{hyperref}
+\usepackage{amsmath}
 \author{Edward Kim}
 \date{\today}
 \title{BHH2019}
@@ -31,36 +32,78 @@
 
 
 \section{Major Findings to Investigate/Understand}
-\label{sec:org9e50a7b}
-\subsection{Random Haar Unitary requires exponential number of two-qubit gates and random bits.}
-\label{sec:org82a1496}
-This makes it infeasible for practice to select such a unitary according to Haar measure.
+\label{sec:orge1080b4}
+\begin{itemize}
+\item Random Haar Unitary requires exponential number of two-qubit gates and random bits.
+This makes it computationally infeasible in practice to select such a unitary according to Haar measure.
 \href{https://arxiv.org/pdf/quant-ph/9508006.pdf}{Knill. Approximations by Quantum Circuits}
 
-\subsection{Best result for a some time was that polynomial random quantum circuits are approximate 2-designs}
-\label{sec:orge6ed15b}
-\subsection{A unitary chosen under Haar measure can be thought of sampling from a uniform distribution over all unitaries in the unitary group.}
-\label{sec:org549b286}
+\item Best result for a some time was that polynomial random quantum circuits are approximate 2-designs.
+\item A unitary chosen under Haar measure can be thought of sampling from a uniform distribution over all unitaries in the unitary group.
 A quantum expander's rapid mixing time (polynomial in \(t\) for a \$t\$-design) means that we can rapidly converge to such a unitary.
 
-We can then think about a local random circuit on n qudits as a random walk such that we pick some index i and some unitary \(U_{i,i+1} \in \mathbb{U}(d^2)\) and we apply \(U_{i.i+1}\) on the qubits \(i\) and \(i+1\). This gives us a distribution over \(\mathbb{U}(d^n)\)
-
-\subsection{Folklore result: An overwhelming number of pure quantum states on n qubits is indistinguihable from the maximally mixed state if restricted to measurements implemented with subexponential-sized quantum circuits.}
-\label{sec:orga3a6da1}
+\item Folklore result: An overwhelming number of pure quantum states on n qubits is indistinguihable from the maximally mixed state if restricted to measurements implemented with subexponential-sized quantum circuits.
 \href{https://arxiv.org/pdf/0812.3001.pdf}{Are random pure states useful for quantum computation?}
 
-\subsection{The proof of the main result concerns bounding the mixing time by the spectral gap (Cheeger-like inequality)}
-\label{sec:org554aa59}
-\href{https://arxiv.org/pdf/0910.0913.pdf}{Convergence rates for arbitrary statistical moments of random quantum circuits
-}
-\subsection{Previous papers have weaker results and are probably worth taking a look for learning techniques behind proofs.}
-\label{sec:org16d9be3}
+\item The proof of the main result concerns bounding the mixing time by the spectral gap (Cheeger-like inequality)
+\href{https://arxiv.org/pdf/0910.0913.pdf}{Convergence rates for arbitrary statistical moments of random quantum circuits}
+\item Previous papers have weaker results and are probably worth taking a look for learning techniques behind proofs.
 \href{https://arxiv.org/pdf/0811.2597.pdf}{Efficient Quantum Tensor Product Expanders and k-designs}
 \href{https://link.springer.com/content/pdf/10.1007/s00220-009-0873-6.pdf}{Random Quantum Circuits are Approximate 2-designs}
+\end{itemize}
 
-\section{Questions to consider.}
-\label{sec:org80761cf}
+\section{Definitions}
+\label{sec:org8e4f993}
+\begin{itemize}
+\item The definition of \emph{Quantum Tensor Product Expander} \(g(\upsilon,t,\lambda)\), is a distribution \(\upsilon\) over \(\mathbb{U}(N)\) such that
+$$ g(\upsilon, t) = || \int_{\mathbb{U}(N)} U^{\otimes t} \otimes (U^*)^{\otimes t} \upsilon(dU) - \int_{\mathbb{U}(N)} U^{\otimes t} \otimes (U^*)^{\otimes t} \mu(dU)||_{\infty} \leq \lambda $$
+where \(\mu\) is the Haar measure over Lie group \(\mathbb{U}(N)\)
 
-\subsection{Is it worth learning the tensor-product expander constructions now? Maybe I should make a short article about it?}
-\label{sec:orgf9d2e3d}
+We can then think about a local random circuit on n qudits as a random walk such that we pick some index i and some unitary \(U_{i,i+1} \in \mathbb{U}(d^2)\) and we apply \(U_{i.i+1}\) on the qubits \(i\) and \(i+1\). This gives us a distribution over \(\mathbb{U}(d^n)\).
+\item Let \(\mu\) be a distribution on \(\mathbb{U}(4)\). Suppose that for any open ball \(S \subset \mathbb{U}(4)\) there exists a positive integer \(\ell\) such that \(\mu^{\star}(S) > 0\) where $$\mu^{\star} = \int_{S} \delta_{U_1 \dots U_{\ell}} d_{\mu}(U_1)\dots d_{\mu}(U_{\ell}) $$
+
+\item Define \(\hat{G}\)
+\end{itemize}
+
+\section{Statement of Major Theorems}
+\label{sec:orga34642d}
+\begin{itemize}
+\item Let \(\mu\) be be a 2-copy gapped distribution and \(W\) be a random circuit sampled from \(\mu\) be choosing \(t\) circuits and choosing a random pair of qudits (\({n \choose 2}\) in all). Then \(t(n) \in \Omega(n(n+1 + \log(1/\epsilon)))\). Then \(G_W\) is an \(\epsilon\)-approximate 2-design.
+
+This shows that any distribution \(\mu\) which is 2-gapped over \(\mathbb{U}(d)\) produces an \$\(\epsilon\)\$-approximate 2-design in ``efficient time'' (polynomial in \(n\) and log factor \(1/\epsilon\)).
+
+\item The crux of the proof above is to show that the expected coefficients  \(\gamma_W(p_1,p_2) = \mathbb{E}_W \gamma_W(p_1,p_2)\) where the expectation is taken over all random circuits of length \(t\) converge to that of the uniform distribution:
+
+For any initial state \(\rho = \frac{1}{2^n} \sum_{p_1, p_2} \gamma_0(p_1, p_2) \sigma_{p_1}\otimes \sigma_{p_2}\) where \(p_1,p_2\) are \(n\) -strings \(\{0,\dots,d-1\}^n\) denoting the \(n\) -tensor product Pauli operators corresponding to
+\(p_1,p_2\), there exists a constant \(C\) such that for any \(\epsilon > 0\),
+$$ \sum_{p_1,p_2 \; p_1p_2 \neq 00} \left( \gamma_t(p_1,p_2) - \delta_{p_1p_2}\frac{\sum_{p \neq 0} \gamma_0(p,p)}{4^n-1} \right)^2 \leq \epsilon$$
+for \(t \geq C(n(n+ \log{1/\epsilon}))\) i.e \(t(n) \in \Omega(n(n+ \log{1/\epsilon}))\)
+
+We see that the lemma claims that all off-diagonal coefficients \(\gamma_t(p_1,p_2), \; p_1\neq p_2\) will vanish as \(t \rightarrow \infty\) while \(\gamma_t(p_1,p_2), \; p_1 = p_2\) converges to some uniform distribution dependent on the initial coefficients \(\gamma_0(p,p)\). Note that \(\gamma_0(p,p)\) can have \emph{negative} values. Furthermore, \(\sum_p \gamma(p,p)\) does not necessarily have to sum to one, initially precluding us from considering these coefficients as a probability distribution. We introduce another lemma which allows us to perform Markov chain analysis when \(\gamma_0(p,p) \geq 0\) and \(\sum_p \gamma_p(p,p) = 1\).
+
+\item One property we have to check is that sampling from an universal distribution on \(\mathbb{U}(d)\) and applying a sufficiently long random circuit to an initial set will converge to the Haar distribution on \(\mathbb{U}(d)\) in the first place.
+
+\begin{itemize}
+\item Question: To prove k-copy gappedness, why is sufficient to prove that \(||G_{\mu} - G_{\mathbb{U}(d)}||_{\infty} < 1\) ? Here, \(G_{\mu} = \mathbb{E}_U U^{\otimes k} \otimes (U^*)^{\otimes k}\) where the expectation is taken over universal distribution \(\mu\) over \(\mathbb{U}(d)\) and \(G_{\mathbb{U}(d)}\) is taken over Haar measure on \(\mathbb{U}(d)\).
+\end{itemize}
+
+\item Since 2-qubit gates are universal for \(\mathbb{U}(2^n)\), creating random circuits converges to the Haar distribution. Now if we let \(\hat{G}\) be the transition matrix comprised as follows: Let \(T(p) = \mathbb{E}_U U^{\otimes k} \sigma_{p_1} \dots \sigma_{p_k} (U^\dagger)^{\otimes k}\) for some \(k \in \mathbb{Z}^+\) and \(0 \leq p_i \leq d^2-1\) for all \(i\). In other words, \(T(p)\) represents the expected state over all unitaries sampled via some distribution \(\mu\) over \(\mathbb{U}(d)\). Note that is this a general construction for arbitrary k-moments and \(\mathbb{U}_d\). For our case, we will be interested in the case where \(k=2\). Since we can reexpress \(T(p)\) in terms of the \(\sigma_p\) basis above:
+$$ T(p) = \sum_{q} \hat{G}(q;p) \sigma_{q_1}\dots\sigma_{q_k} $$
+so
+$$ \hat{G}(p;q) = d^{-k} tr(\sigma_q T(p)) $$
+We can now consider \(\hat{G}\) as a matrix of coefficients describing the transformation of basis vectors \(\sigma_{p_1}\otimes \dots \otimes \sigma_{p_k}\).
+\begin{itemize}
+\item A crucial part of the argument of proving the above lemma will be to consider the transitions:
+$$ \gamma_{t+1}(p) = \sum_{i\neq j} \frac{1}{n(n-1)}\sum_{q} \hat{G}^{ij}(q)\gamma_t(q) $$
+which calculates the \emph{expected} coefficents for n-string \(q\) in a similar way we calculate probability distributions for Markov chains. Let \$\$
+\end{itemize}
+\end{itemize}
+
+\section{Questions to consider}
+\label{sec:org17d32a6}
+
+\begin{itemize}
+\item Is it worth learning the tensor-product expander constructions now? Maybe I should make a short article about it?
+Yes. It would be friutful to learn some relevant Quantum Complexity Theory on the sid
+\end{itemize}
 \end{document}
