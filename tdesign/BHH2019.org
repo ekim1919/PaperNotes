@@ -84,4 +84,4 @@
 * Questions to consider
 
 + Is it worth learning the tensor-product expander constructions now? Maybe I should make a short article about it?
-  Yes. It would be friutful to learn some relevant Quantum Complexity Theory on the sid
+  Yes. It would be friutful to learn some relevant Quantum Complexity Theory on the side.
